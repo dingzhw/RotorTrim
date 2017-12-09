@@ -115,7 +115,7 @@ end
 
 
 function trimwt(uitmp,rot,beta_lat,beta_lon,θcp,θlat,θlon,epsi=1/180*π) # 纵横向挥舞配平法
-  fzt = abs(rot-T) # 力的配平条件
+  fzt = abs(rot*cos(αs)-T) # 力的配平条件
   epsi = 1/180*π # 雅可比求解的变化小量
   # 求解雅可比矩阵
   # 输入量：θ0,θ_lat,θ_lon
