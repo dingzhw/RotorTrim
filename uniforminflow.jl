@@ -21,25 +21,25 @@ function uniforminflow(ψ,θcp,θlat,θlon,betanow,betaxnow,Mbeta_aero=0.0)
   vinduitmp_r = Array{Vector}(NR,Nbe)
   valluitmp_r = Array{Vector}(NR,Nbe)
 
-  # # 准静态挥舞解方法
-  # β = sflapre(ψ,vall_s[3]/(Ω*R),θcp,θlat,θlon)[1]
-  # dβ = sflapre(ψ,vall_s[3]/(Ω*R),θcp,θlat,θlon)[2]
-  # vβ_β = [0.0,0.0,-dβ] # 挥舞坐标系下挥舞引起的气流速度分量
-  # vβ_r = betatoro(vβ_β,β)
+  # 准静态挥舞解方法
+  β = sflapre(ψ,vall_s[3]/(Ω*R),θcp,θlat,θlon)[1]
+  dβ = sflapre(ψ,vall_s[3]/(Ω*R),θcp,θlat,θlon)[2]
+  vβ_β = [0.0,0.0,-dβ] # 挥舞坐标系下挥舞引起的气流速度分量
+  vβ_r = betatoro(vβ_β,β)
 
 
-  if Mbeta_aero==0.0 # 入流场无挥舞初始化
-    vβ_r = [0.0,0.0,0.0]
-    β = 0.0
-    dβ = 0.0
-  else
-    # 时间步进挥舞解方法
-    betatmp = dflapre(betanow,betaxnow,Mbeta_aero)
-    β = betatmp[1]
-    dβ = betatmp[2]
-    vβ_β = [0.0,0.0,-dβ] # 挥舞坐标系下挥舞引起的气流速度分量
-    vβ_r = betatoro(vβ_β,β)
-  end
+  # if Mbeta_aero==0.0 # 入流场无挥舞初始化
+  #   vβ_r = [0.0,0.0,0.0]
+  #   β = 0.0
+  #   dβ = 0.0
+  # else
+  #   # 时间步进挥舞解方法
+  #   betatmp = dflapre(betanow,betaxnow,Mbeta_aero)
+  #   β = betatmp[1]
+  #   dβ = betatmp[2]
+  #   vβ_β = [0.0,0.0,-dβ] # 挥舞坐标系下挥舞引起的气流速度分量
+  #   vβ_r = betatoro(vβ_β,β)
+  # end
 
   for k in 1:NR
     ψk = ψ+(k-1)*2*π/NR

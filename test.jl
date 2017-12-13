@@ -1,22 +1,8 @@
-include("const.jl")
-include("flapreponse.jl")
+addprocs(4)
 
-a = 0.0
-b = 0.0
-c = 1
-i = 1
-while true
-  dftmp = dflapre(a,b,c*100)
-  if i%2==0
-    c = -1
+function test()
+  a = randn(1000)
+  @parallel (+) for i=1:100000
+    fetch(a[randi(end)])
   end
-  print("$(a*180/π)\t")
-  print("$(b*10)\n")
-  if abs(a)>π/2
-    print("Error")
-    break
-  end
-  a = dftmp[1]
-  b = dftmp[2]
-  i = i+1
 end

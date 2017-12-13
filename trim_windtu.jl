@@ -46,8 +46,8 @@ function uisol(uitmp,θ7,θlat,θlon)  # 均匀入流求解力和力矩的流程
     iter = iter+1
   end
   sumf = sumf/npsi
-  blat = blat/npsi
-  blon = blon/npsi
+  blat = blat/npsi*2
+  blon = blon/npsi*2
 
   return sumf,blat,blon
 end
@@ -107,8 +107,8 @@ function yagb(uitmp,θcp,θlat,θlon,epsi=1/180*pi)
   dlonblon = (blonfor-blonbac)/epsi
 
   Myg = [dthecp  dlat  dlon;
-          dtheblat  dlatblat  dlatblon;
-          dtheblon  dlonblat  dlonblon]
+          dtheblat  dlatblat  dlonblat;
+          dtheblon  dlatblon  dlonblon]
 
   return Myg
 end

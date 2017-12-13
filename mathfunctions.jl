@@ -1,37 +1,37 @@
-function maprepend(a,b,i,j,k,l::Int64=1)
-  # 多维矢量数组的新插值方法
-  # a replace of prepend! for multi-dim vectors
-  # i,j,k is the dimension of Array a
-  # l,j,k is the dimension of Array b
-
-  if typeof(a)==Array{Array{T,1} where T,3}
-    c = Array{Vector}(i+l,j,k)
-  elseif typeof(a)==Array{Float64,3}
-    c = Array{Float64}(i+l,j,k)
-  else
-    print("Maprepend return an error message!")
-    print("The value input could not be handled!")
-    return false
-  end
-
-  for m in 1:l
-    for n in 1:j
-      for r in 1:k
-        c[m,n,r] = b[m,n,r]
-      end
-    end
-  end
-
-  for m in (l+1):(i+l)
-    for n in 1:j
-      for r in 1:k
-        c[m,n,r] = a[m-l,n,r]
-      end
-    end
-  end
-
-  return c
-end
+# function maprepend(a,b,i,j,k,l::Int64=1)
+#   # 多维矢量数组的新插值方法
+#   # a replace of prepend! for multi-dim vectors
+#   # i,j,k is the dimension of Array a
+#   # l,j,k is the dimension of Array b
+#
+#   if typeof(a)==Array{Array{T,1} where T,3}
+#     c = Array{Vector}(i+l,j,k)
+#   elseif typeof(a)==Array{Float64,3}
+#     c = Array{Float64}(i+l,j,k)
+#   else
+#     print("Maprepend return an error message!")
+#     print("The value input could not be handled!")
+#     return false
+#   end
+#
+#   for m in 1:l
+#     for n in 1:j
+#       for r in 1:k
+#         c[m,n,r] = b[m,n,r]
+#       end
+#     end
+#   end
+#
+#   for m in (l+1):(i+l)
+#     for n in 1:j
+#       for r in 1:k
+#         c[m,n,r] = a[m-l,n,r]
+#       end
+#     end
+#   end
+#
+#   return c
+# end
 
 # 坐标系转换矩阵
 function systoro(m1,ψ) #固定坐标系转为旋转坐标系

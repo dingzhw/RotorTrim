@@ -1,7 +1,7 @@
 # This file solve the flap reponses of blades
 function sflapre(ψ,λ_α,θ_cp,θ_lat,θ_lon) #staticflapre
   # 其中θ应当输入平均值，例如mean(θ_cp)
-  γ_ = 13.0 #(ρ*5.73*(0.35)*R^4)/Iβ
+  γ_ = (ρ*5.73*(0.06)*R^4)/Iβ
   μ = μ_air
   F0 = 1+μ^2/2
   F_B1 = μ
@@ -26,7 +26,7 @@ function sflapre(ψ,λ_α,θ_cp,θ_lat,θ_lon) #staticflapre
   β = β0-β_lon*cos(ψ)-β_lat*sin(ψ)
   dβ = Ω*(β_lon*sin(ψ)-β_lat*cos(ψ))
   ddβ = Ω*(β_lon*cos(ψ)+β_lat*cos(ψ))
-  return β,dβ,ddβ,β_lon,β_lat
+  return β,dβ,ddβ,β_lon,β_lat,β0
 end
 
 function dflapre(betanow,betaxnow,Mbeta_aero)	#动态挥舞响应

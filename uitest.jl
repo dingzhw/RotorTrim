@@ -39,9 +39,9 @@ while index<=60*npsi # 如果计算了100圈还没收敛就结束计算
   vind_r = uitmp[1]
   vall_r = uitmp[2]
   beta = uitmp[4]
-  if index%npsi==0
-    print("===当前挥舞角$(beta/π*180)°===\n")
-  end
+  # if index%npsi==0
+  #   print("===当前挥舞角$(beta/π*180)°===\n")
+  # end
   dbeta = uitmp[5]
   blat = blat+uitmp[4]*sin(ψ)
   blon = blon+uitmp[4]*cos(ψ)
@@ -66,21 +66,22 @@ while index<=60*npsi # 如果计算了100圈还没收敛就结束计算
   # print("$(θ/π*180)\n")
   # print("$(α_aero/π*180)\n")
   # print("\n")
-  # The file calculate the uniform induced velocity
-  uitmp = uniforminflow(ψ,θcp,θlat,θlon,beta,dbeta,0.0)
 
-  ψ = ψ+dψ
+
 
   # 此处要输入转过一周进行配平的条件，今天来不及了明天完成，作此标志 12/2/2017
   if index%npsi==0
     rot = rot/npsi
     print("===当前拉力：$(rot)N===\n")
-    beta_lat = blat/npsi
-    beta_lon = blon/npsi
+    beta_lat = blat/npsi*2
+    beta_lon = blon/npsi*2
+    print("===当前横向挥舞：$(beta_lat*180/π)deg===\n")
+    print("===当前纵向挥舞：$(beta_lon*180/π)deg===\n")
 
     # rot = 0.0
     # blat = 0.0
     # blon = 0.0
+
     ψ = 0.0
 
     # 此处开始进行配平
@@ -95,6 +96,8 @@ while index<=60*npsi # 如果计算了100圈还没收敛就结束计算
       θcp = trimtmp[5]
       θ0 = trimtmp[2]
       print("配平总距：$(trimtmp[5]*180/π)\n")
+      print("配平横向变距：$(trimtmp[3]*180/π)\n")
+      print("配平纵向变距：$(trimtmp[4]*180/π)\n")
       θlat = trimtmp[3]
       θlon = trimtmp[4]
       rot = 0.0
@@ -103,7 +106,9 @@ while index<=60*npsi # 如果计算了100圈还没收敛就结束计算
     end
   end
 
-
+  # The file calculate the uniform induced velocity
+  uitmp = uniforminflow(ψ,θcp,θlat,θlon,beta,dbeta,Mbeta_aero)
+  ψ = ψ+dψ
   index = index+1
 end
 
